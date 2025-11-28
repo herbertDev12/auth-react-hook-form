@@ -2,7 +2,16 @@ import React from "react";
 import "./YoutubeForm.css";
 import { useForm } from "react-hook-form";
 
+//This React hook helps to manage form data
+//Submit Form Data
+//Enforce validations and provide visual feedback
+
 export const YoutubeForm: React.FC = () => {
+
+    const form = useForm();
+    const  { register } = form;
+    //const { name, ref, onChange, onBlur } = register("username");
+    //those are the atributes that contains register object
     return (
         <div className="form-container">
             <form className="modern-form">
@@ -13,7 +22,7 @@ export const YoutubeForm: React.FC = () => {
                     <input 
                         type="text" 
                         id="username" 
-                        name="username" 
+                        {...register("username")}    
                         className="form-input"
                         placeholder="Enter your username"
                     />
@@ -24,7 +33,7 @@ export const YoutubeForm: React.FC = () => {
                     <input 
                         type="email" 
                         id="email" 
-                        name="email" 
+                        {...register("email")}   
                         className="form-input"
                         placeholder="Enter your email"
                     />
@@ -35,7 +44,7 @@ export const YoutubeForm: React.FC = () => {
                     <input 
                         type="text" 
                         id="channel" 
-                        name="channel" 
+                        {...register("channel")}  
                         className="form-input"
                         placeholder="Enter your channel name"
                     />
