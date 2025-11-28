@@ -1,6 +1,7 @@
 import React from "react";
 import "./YoutubeForm.css";
 import { useForm } from "react-hook-form";
+import {DevTool} from "@hookform/devtools"
 
 //This React hook helps to manage form data
 //Submit Form Data
@@ -9,9 +10,10 @@ import { useForm } from "react-hook-form";
 export const YoutubeForm: React.FC = () => {
 
     const form = useForm();
-    const  { register } = form;
+    const  { register, control } = form;
     //const { name, ref, onChange, onBlur } = register("username");
     //those are the atributes that contains register object
+    //we are passing the object in the spread sintax way to each input
     return (
         <div className="form-container">
             <form className="modern-form">
@@ -52,6 +54,8 @@ export const YoutubeForm: React.FC = () => {
                 
                 <button type="submit" className="form-button">Submit</button>
             </form>
+        <DevTool control={control}/>
         </div>
+        
     )
 }
