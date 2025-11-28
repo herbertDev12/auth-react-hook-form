@@ -25,7 +25,7 @@ export const YoutubeForm: React.FC = () => {
     }
     return (
         <div className="form-container">
-            <form onSubmit={handleSubmit(onSubmit)} className="modern-form">
+            <form onSubmit={handleSubmit(onSubmit)} noValidate className="modern-form">
                 <h2 className="form-title">Create Account</h2>
                 
                 <div className="form-group">
@@ -33,10 +33,11 @@ export const YoutubeForm: React.FC = () => {
                     <input 
                         type="text" 
                         id="username" 
-                        {...register("username")}    
+                        {...register("username", {required: 'Username is required'})}    
                         className="form-input"
                         placeholder="Enter your username"
                     />
+                    
                 </div>
                 
                 <div className="form-group">
@@ -44,7 +45,12 @@ export const YoutubeForm: React.FC = () => {
                     <input 
                         type="email" 
                         id="email" 
-                        {...register("email")}   
+                        {...register("email", {
+                            pattern: {
+                                value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$ /,
+                                message: 'Invalid email format'
+                            }
+                        })}   
                         className="form-input"
                         placeholder="Enter your email"
                     />
@@ -55,7 +61,7 @@ export const YoutubeForm: React.FC = () => {
                     <input 
                         type="text" 
                         id="channel" 
-                        {...register("channel")}  
+                        {...register("channel", {required: 'Channel name is required'})}  
                         className="form-input"
                         placeholder="Enter your channel name"
                     />
