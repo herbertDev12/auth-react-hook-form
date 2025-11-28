@@ -7,16 +7,25 @@ import {DevTool} from "@hookform/devtools"
 //Submit Form Data
 //Enforce validations and provide visual feedback
 
+type FormValues = {
+    username: string,
+    email: string,
+    channel: string
+};
+
 export const YoutubeForm: React.FC = () => {
 
-    const form = useForm();
-    const  { register, control } = form;
+    const form = useForm<FormValues>();
+    const  { register, control, handleSubmit } = form;
     //const { name, ref, onChange, onBlur } = register("username");
     //those are the atributes that contains register object
     //we are passing the object in the spread sintax way to each input
+    const onSubmit = (data: FormValues) => {
+        console.log('Form submitted',data)
+    }
     return (
         <div className="form-container">
-            <form className="modern-form">
+            <form onSubmit={handleSubmit(onSubmit)} className="modern-form">
                 <h2 className="form-title">Create Account</h2>
                 
                 <div className="form-group">
