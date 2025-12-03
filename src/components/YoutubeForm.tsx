@@ -2,17 +2,17 @@ import React from "react";
 import "./YoutubeForm.css";
 import { useForm } from "react-hook-form";
 import {DevTool} from "@hookform/devtools"
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {z} from "zod";
 
 //This React hook helps to manage form data
 //Submit Form Data
 //Enforce validations and provide visual feedback
 
-const schema = yup.object({
-    username: yup.string().required("Username is required"),
-    email: yup.string().email("Email format is not valid").required("Email is required"),
-    channel: yup.string().required("Channel is required")
+const schema = z.object({
+    username: z.string().nonempty("Username is required"),
+    email: z.string().nonempty("Email is required").email("Email format is not valid"),
+    channel: z.string().nonempty("Channel is required")
 })
 
 type FormValues = {
@@ -29,7 +29,7 @@ export const YoutubeForm: React.FC = () => {
             email: "",
             channel: "",
         },
-        resolver: yupResolver(schema)
+        resolver: zodResolver(schema)
     });
     const  { register, control, handleSubmit, formState } = form;
     const {errors} = formState;
