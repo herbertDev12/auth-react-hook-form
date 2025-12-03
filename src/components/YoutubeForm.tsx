@@ -2,10 +2,18 @@ import React from "react";
 import "./YoutubeForm.css";
 import { useForm } from "react-hook-form";
 import {DevTool} from "@hookform/devtools"
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 //This React hook helps to manage form data
 //Submit Form Data
 //Enforce validations and provide visual feedback
+
+const schema = yup.object({
+    username: yup.string().required("Username is required"),
+    email: yup.string().email("Email format is not valid").required("Email is required"),
+    channel: yup.string().required("Channel is required")
+})
 
 type FormValues = {
     username: string,
@@ -15,7 +23,14 @@ type FormValues = {
 
 export const YoutubeForm: React.FC = () => {
 
-    const form = useForm<FormValues>();
+    const form = useForm<FormValues>({
+        defaultValues: {
+            username: "",
+            email: "",
+            channel: "",
+        },
+        resolver: yupResolver(schema)
+    });
     const  { register, control, handleSubmit, formState } = form;
     const {errors} = formState;
     //const { name, ref, onChange, onBlur } = register("username");
@@ -34,7 +49,7 @@ export const YoutubeForm: React.FC = () => {
                     <input 
                         type="text" 
                         id="username" 
-                        {...register("username", {required: 'Username is required'})}    
+                        {...register("username")}    
                         className="form-input"
                         placeholder="Enter your username"
                     />
@@ -48,12 +63,7 @@ export const YoutubeForm: React.FC = () => {
                     <input 
                         type="email" 
                         id="email" 
-                        {...register("email", {
-                            pattern: {
-                                value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$ /,
-                                message: 'Invalid email format'
-                            }
-                        })}   
+                        {...register("email")}
                         className="form-input"
                         placeholder="Enter your email"
                     />
@@ -67,7 +77,7 @@ export const YoutubeForm: React.FC = () => {
                     <input 
                         type="text" 
                         id="channel" 
-                        {...register("channel", {required: 'Channel name is required'})}  
+                        {...register("channel")}  
                         className="form-input"
                         placeholder="Enter your channel name"
                     />
