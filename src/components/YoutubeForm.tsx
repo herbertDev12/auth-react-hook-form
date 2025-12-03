@@ -16,7 +16,8 @@ type FormValues = {
 export const YoutubeForm: React.FC = () => {
 
     const form = useForm<FormValues>();
-    const  { register, control, handleSubmit } = form;
+    const  { register, control, handleSubmit, formState } = form;
+    const {errors} = formState;
     //const { name, ref, onChange, onBlur } = register("username");
     //those are the atributes that contains register object
     //we are passing the object in the spread sintax way to each input
@@ -37,7 +38,9 @@ export const YoutubeForm: React.FC = () => {
                         className="form-input"
                         placeholder="Enter your username"
                     />
-                    
+                </div>
+                <div>
+                    <p className="error">{errors.username?.message}</p>
                 </div>
                 
                 <div className="form-group">
@@ -55,6 +58,9 @@ export const YoutubeForm: React.FC = () => {
                         placeholder="Enter your email"
                     />
                 </div>
+                <div>
+                    <p className="error">{errors.email?.message}</p>
+                </div>
                 
                 <div className="form-group">
                     <label htmlFor="channel" className="form-label">Channel</label>
@@ -65,6 +71,9 @@ export const YoutubeForm: React.FC = () => {
                         className="form-input"
                         placeholder="Enter your channel name"
                     />
+                </div>
+                <div>
+                    <p className="error">{errors.channel?.message}</p>
                 </div>
                 
                 <button type="submit" className="form-button">Submit</button>
